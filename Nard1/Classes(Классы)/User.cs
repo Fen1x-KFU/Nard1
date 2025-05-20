@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nard
+﻿namespace Nard
 {
-    /// <summary>
-    /// 
-    /// </summary>
     internal class User
-
     {
+        /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// Пароль пользователя
+        /// </summary>
+        public string Password { get; set; }
+        /// <summary>
+        /// Рейтинг пользователя
+        /// </summary>
+        public ushort Rating { get; set; }
     }
 }

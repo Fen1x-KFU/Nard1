@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Nard
+﻿namespace Nard
 {
     /// <summary>
     /// Класс игрока
@@ -16,6 +10,10 @@ namespace Nard
         /// </summary>
         public Dictionary<int, byte[][]> Desk {  get; set; }
         /// <summary>
+        /// Доска соперника (тот же принцип)
+        /// </summary>
+        public Dictionary<int, byte[][]> DeskOppo { get; set; }
+        /// <summary>
         /// Кубик 1
         /// </summary>
         public byte Cube1 { get; set; }
@@ -23,6 +21,14 @@ namespace Nard
         /// Кубик 2
         /// </summary>
         public byte Cube2 { get; set; }
-        
+        /// <summary>
+        /// Метод, который будет возвращать доску соперника
+        /// </summary>
+        /// <param name="opponent"></param>
+        /// <returns></returns>
+        public Dictionary<int, byte[][]> ChekOpponentPosition(Player opponent)
+        {
+            return opponent.Desk;
+        }
     }
 }
