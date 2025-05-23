@@ -7,51 +7,57 @@ namespace Nard1
         public Form1()
         {
             InitializeComponent();
-            ImagBackGround("Desk.jpg");
+            ImagBackGround();
             this.WindowState = FormWindowState.Maximized;
             this.MaximizeBox = false; // Отключает кнопку развёртывания
-            PictureBox();
+            SetupPictureBox();
         }
 
-        public void ImagBackGround(string name)
+        public void ImagBackGround()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", name);
+            string imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Desk.jpg");
 
            this.BackgroundImage = Image.FromFile(imagePath);  
         }
 
-        private void PictureBox()
+        private void SetupPictureBox()
         {
-            PictureBox pictureBox1 = new PictureBox();
+            // Создаём PictureBox
+            PictureBox pictureBox = new PictureBox();
+
+            // Устанавливаем размер (например, 200x200)
+            pictureBox.Size = new Size(200, 200);
 
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Board.jpg");
 
             // Устанавливаем изображение
-            pictureBox1.Image = Image.FromFile(imagePath);
+            pictureBox.Image = Image.FromFile(imagePath);
 
             // Устанавливаем режим изменения размера (изображение будет отображаться в оригинальном размере)
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
 
-            this.Controls.Add(pictureBox1);
+            // Заливаем красным цветом
+            //pictureBox.BackColor = Color.Red;
 
-            // Вызываем центрирование с задержкой до следующей отрисовки
-            this.Controls.Add(pictureBox1);
-
-            CenterPictureBox(pictureBox1);
-        }
-
-        private void CenterPictureBox(PictureBox pb)
-        {
-            // Принудительно обновляем отрисовку
-            pb.Update();
-
-            // Центрируем
-            pb.Location = new Point(
-                (this.ClientSize.Width - pb.Width) / 2,
-                (this.ClientSize.Height - pb.Height) / 2
+            // Размещаем по центру формы
+            pictureBox.Location = new Point(
+                (this.ClientSize.Width - pictureBox.Width) / 2,
+                (this.ClientSize.Height - pictureBox.Height) / 2
             );
+
+            // При изменении размера формы PictureBox остаётся по центру
+            this.Resize += (sender, e) =>
+            {
+                pictureBox.Location = new Point(
+                    (this.ClientSize.Width - pictureBox.Width) / 2,
+                    (this.ClientSize.Height - pictureBox.Height) / 2
+                );
+            };
+
+            // Добавляем PictureBox на форму
+            this.Controls.Add(pictureBox);
         }
     }
 }
