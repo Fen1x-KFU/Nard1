@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace Nard1
 {
@@ -16,6 +17,8 @@ namespace Nard1
             this.MaximizeBox = false; // Отключает кнопку развёртывания
             SetupPictureBox();
             CreatePanel();
+            CreateBlackChipsInPanel(panel);
+            CreateRedChipsInPanel(panel);
         }
 
         public void ImagBackGround()
@@ -28,8 +31,6 @@ namespace Nard1
 
         private void SetupPictureBox()
         {
-            // Создаём PictureBox
-            //PictureBox pictureBox = new PictureBox();
 
             // Устанавливаем размер (например, 200x200)
             pictureBox.Size = new Size(200, 200);
@@ -42,9 +43,6 @@ namespace Nard1
 
             // Устанавливаем режим изменения размера (изображение будет отображаться в оригинальном размере)
             pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-
-            // Заливаем красным цветом
-            //pictureBox.BackColor = Color.Red;
 
             // Размещаем по центру формы
             pictureBox.Location = new Point(
@@ -98,6 +96,97 @@ namespace Nard1
 
             // Добавляем панель на форму
             this.Controls.Add(panel);
+        }
+
+        public void CreateBlackChipsInPanel(Panel panel)
+        {
+            // Очищаем панель перед созданием фишек
+            panel.Controls.Clear();
+
+            // Размеры фишки
+            int chipSize = 40; // диаметр кружка
+            int margin = 5;    // отступ между фишками
+
+            // Количество столбцов для размещения
+            int columns = 1;
+
+            // Создаем 15 чёрных фишек
+            for (int i = 0; i < 15; i++)
+            {
+                var chip = new Button()
+                {
+                    Width = chipSize,
+                    Height = chipSize,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.Black,
+                    Enabled = true, // чтобы не было кликабельного эффекта
+                    TabStop = false // убираем из таб-последовательности
+                };
+
+                // Делаем фишку круглой
+                chip.FlatAppearance.BorderSize = 0;
+                var path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddEllipse(0, 0, chipSize, chipSize);
+                chip.Region = new Region(path);
+
+                // Позиционирование (распределяем по сетке)
+                int col = i % columns;
+                int row = i / columns;
+                chip.Left = col * (chipSize + margin);
+                chip.Top = row * (chipSize + margin);
+
+                panel.Controls.Add(chip);
+            }
+
+            // Включаем скролл при необходимости
+            panel.AutoScroll = true;
+        }
+
+        public void CreateRedChipsInPanel(Panel panel)
+        {
+            // Очищаем панель перед созданием фишек
+            //panel.Controls.Clear();
+
+            // Размеры фишки
+            int chipSize = 40; // диаметр кружка
+            int margin = 5;    // отступ между фишками
+
+            // Рассчитываем начальную позицию (правая граница панели минус ширина фишек)
+            int rightMargin = margin; // Отступ от правого края
+            int startX = panel.Width - chipSize - rightMargin;
+
+            // Количество столбцов для размещения
+            int columns = 1;
+
+            // Создаем 15 чёрных фишек
+            for (int i = 0; i < 15; i++)
+            {
+                var chip = new Button()
+                {
+                    Width = chipSize,
+                    Height = chipSize,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = Color.Red,
+                    Enabled = true, // чтобы не было кликабельного эффекта
+                    TabStop = false // убираем из таб-последовательности
+                };
+
+                // Делаем фишку круглой
+                chip.FlatAppearance.BorderSize = 0;
+                var path = new System.Drawing.Drawing2D.GraphicsPath();
+                path.AddEllipse(0, 0, chipSize, chipSize);
+                chip.Region = new Region(path);
+
+                // Позиционируем справа
+                int row = i / columns;
+                chip.Left = startX;
+                chip.Top = row * (chipSize + margin);
+
+                panel.Controls.Add(chip);
+            }
+
+            // Включаем скролл при необходимости
+            panel.AutoScroll = true;
         }
     }
 }
