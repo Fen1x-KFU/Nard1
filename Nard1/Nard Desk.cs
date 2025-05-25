@@ -1,3 +1,4 @@
+using Nard;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
@@ -12,27 +13,26 @@ namespace Nard1
         public Form1()
         {
             InitializeComponent();
-            ImagBackGround();
+            ImageBackGround();
             this.WindowState = FormWindowState.Maximized;
-            this.MaximizeBox = false; // Отключает кнопку развёртывания
+            this.MaximizeBox = true; // Отключает кнопку развёртывания
             SetupPictureBox();
             CreatePanel();
             CreateBlackChipsInPanel(panel);
             CreateRedChipsInPanel(panel);
         }
 
-        public void ImagBackGround()
+        string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+        public void ImageBackGround()
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Desk.jpg");
+            var imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Desk.jpg");
 
            this.BackgroundImage = Image.FromFile(imagePath);  
         }
 
         private void SetupPictureBox()
         {
-            //путь до доски
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Board.jpg");
 
             // установка картинки для доски
@@ -40,12 +40,6 @@ namespace Nard1
 
             // Делаем ориг размер картинки в текст боксе
             pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-
-            // размещаем по центру
-            pictureBox.Location = new Point(
-                (this.ClientSize.Width - pictureBox.Width) / 2,
-                (this.ClientSize.Height - pictureBox.Height) / 2
-            );
 
             // при изменении размера формы находится по центру
             this.Resize += (sender, e) =>
@@ -70,12 +64,6 @@ namespace Nard1
             panel.Size = new Size(
                 pictureBox.Width + (2 * extraWidth),
                 pictureBox.Height
-            );
-
-            // панель по центру формы
-            panel.Location = new Point(
-                (this.ClientSize.Width - panel.Width) / 2,
-                (this.ClientSize.Height - panel.Height) / 2
             );
 
             // зелёный цвет
@@ -170,5 +158,10 @@ namespace Nard1
                 panel.Controls.Add(chip);
             }
         }
+
+        //public void StartPlay(Player player1, Player player)
+        //{
+
+        //}
     }
 }
