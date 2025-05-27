@@ -1,14 +1,16 @@
-using Nard;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 
 namespace Nard1
 {
-    public partial class Form1 : Form
+    internal partial class Form1 : Form
     {
         PictureBox pictureBox = new PictureBox();
         Panel panel = new Panel();
+        Player p1 = new Player();
+        Player p2 = new Player();
+        //List<Button> buttons = new List<Button>();
 
         public Form1()
         {
@@ -20,6 +22,8 @@ namespace Nard1
             CreatePanel();
             CreateBlackChipsInPanel(panel);
             CreateRedChipsInPanel(panel);
+            Center();
+            StartPlay(p1, p2);
         }
 
         string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -28,7 +32,7 @@ namespace Nard1
         {
             var imagePath = Path.Combine(baseDir, "..", "..", "..", "Ico", "Desk.jpg");
 
-           this.BackgroundImage = Image.FromFile(imagePath);  
+            this.BackgroundImage = Image.FromFile(imagePath);
         }
 
         private void SetupPictureBox()
@@ -117,6 +121,9 @@ namespace Nard1
 
                 // добавляем
                 panel.Controls.Add(chip);
+
+                //chip.Name = $"chipBlack{i}";
+                //buttons.Add(chip);
             }
         }
 
@@ -159,9 +166,78 @@ namespace Nard1
             }
         }
 
-        //public void StartPlay(Player player1, Player player)
-        //{
+        //button1.Click += (s, e) => OldButton1();
 
-        //}
+
+        public void StartRolltheDice()
+        {
+
+            var dice1 = p1.RollTheDice();
+            var dice2 = p2.RollTheDice();
+            var imagePath1 = Path.Combine(baseDir, "..", "..", "..", "Ico", $"Cube{dice1}.jpg");
+            var imagePath2 = Path.Combine(baseDir, "..", "..", "..", "Ico", $"Cube{dice2}.jpg");
+
+            pictureBox1.Image = Image.FromFile(imagePath1);
+            pictureBox2.Image = Image.FromFile(imagePath2);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            if (dice1 > dice2)
+            {
+                MessageBox.Show("Первый начинает игрок1");
+                button1.Visible = false;
+                pictureBox1.Visible = false;
+                pictureBox2.Visible = false;
+            }
+            else if (dice2  >  dice1)
+            {
+                MessageBox.Show("Первый начинает игрок2");
+                button1.Visible = false;
+                pictureBox1.Visible = false;
+                pictureBox2.Visible = false;
+            }
+            else
+            {
+                MessageBox.Show("НАДО ПОДБРОСИТЬ ЗАНОВО!!!");
+                button1.BackColor = Color.GreenYellow;
+                button1.Enabled = true;
+            }
+        }
+
+        public void StartPlay(Player p1, Player p2)
+        {
+            var flag = true;
+        }
+
+        public void Center()
+        {
+            this.Resize += (sender, e) =>
+            {
+                button1.Location = new Point(
+                (this.ClientSize.Width - button1.Width) / 2,
+                (this.ClientSize.Height - button1.Height) / 2
+                );
+
+                pictureBox1.Location = new Point(
+                    (button1.Location.X - 110),
+                    (button1.Location.Y + 105)
+                    );
+
+                pictureBox2.Location = new Point(
+                    (button1.Location.X + 110),
+                    (button1.Location.Y + 105)
+                    );
+            };
+        }
+
+        private void OldButton1()
+        {
+            // "Выключаем" кнопку
+            button1.BackColor = Color.White;
+            button1.Enabled = false;
+            StartRolltheDice();
+        }
+
+        //private void NewButton1
     }
 }

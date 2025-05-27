@@ -1,4 +1,4 @@
-﻿namespace Nard
+﻿namespace Nard1
 {
     internal class User
     {

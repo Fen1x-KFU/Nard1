@@ -1,18 +1,17 @@
-﻿namespace Nard
+﻿namespace Nard1
 {
-    /// <summary>
-    /// Класс игрока
-    /// </summary>
-    internal class Player
+    internal class Player : Game
     {
+        Random random = new Random(); 
+
         /// <summary>
         /// Доска игрока (Словарь -- номер ячейки : (кем занята и кол-во фишек))
         /// </summary>
-        public Dictionary<int, byte[][]> Desk {  get; set; }
+        public Dictionary<int, CellState> Desk {  get; set; }
         /// <summary>
         /// Доска соперника (тот же принцип)
         /// </summary>
-        public Dictionary<int, byte[][]> DeskOppo { get; set; }
+        public Dictionary<int, CellState> DeskOppo { get; set; }
         /// <summary>
         /// Кубик 1
         /// </summary>
@@ -26,9 +25,14 @@
         /// </summary>
         /// <param name="opponent"></param>
         /// <returns></returns>
-        public Dictionary<int, byte[][]> ChekOpponentPosition(Player opponent)
+        public Dictionary<int, CellState> ChekOpponentPosition(Player opponent)
         {
             return opponent.Desk;
+        }
+
+        public int RollTheDice()
+        {
+            return random.Next(1, 7);
         }
     }
 }
