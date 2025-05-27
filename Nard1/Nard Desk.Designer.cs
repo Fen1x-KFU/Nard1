@@ -1,6 +1,6 @@
 ﻿namespace Nard1
 {
-    partial class Form1
+    internal partial class Form1
     {
         /// <summary>
         ///  Required designer variable.
@@ -39,8 +39,9 @@
             // 
             button1.BackColor = Color.GreenYellow;
             button1.Location = new Point(0, 0);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(110, 51);
+            button1.Size = new Size(126, 68);
             button1.TabIndex = 0;
             button1.Text = "Бросить кубик";
             button1.UseVisualStyleBackColor = false;
@@ -48,29 +49,30 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(74, 120);
+            pictureBox1.Location = new Point(85, 160);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(100, 99);
+            pictureBox1.Size = new Size(132, 132);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(241, 104);
+            pictureBox2.Location = new Point(275, 139);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(100, 99);
+            pictureBox2.Size = new Size(132, 132);
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(785, 376);
+            ClientSize = new Size(897, 501);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(button1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
